@@ -189,19 +189,20 @@ public class TransaksiFrame extends javax.swing.JFrame {
         int code = 1;
         DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
 	Date date = new Date();
-	System.out.println(dateFormat.format(date));
         jTextFieldCode.setText(dateFormat.format(date)+String.format("%02d", code));
         
     }//GEN-LAST:event_jButtonNewActionPerformed
 
     private void jComboBoxItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxItemsActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBoxItemsActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
+        String nama = (String) jComboBoxItems.getSelectedItem();
         table.addRow(new Object[]{
-            "sas",
+            nama,
             "sdds",
             129
                                    });
