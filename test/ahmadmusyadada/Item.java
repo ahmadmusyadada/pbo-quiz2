@@ -12,6 +12,6 @@ package ahmadmusyadada;
 // Deklarasi class Item untuk merepresentasikan barang
 // yang akan dimasukkan dalam daftar belanja.
 public class Item {
-  // atribut yang digunakan untuk menyimpan nama barang
-  private String name;
+    // atribut yang digunakan untuk menyimpan nama barang
+    private String name;
 }

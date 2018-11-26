@@ -5,18 +5,29 @@
  */
 package ahmadmusyadada;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Ahmad Musyadad A
  */
 public class TransaksiFrame extends javax.swing.JFrame {
-
+    DefaultTableModel table=new DefaultTableModel();
     /**
      * Creates new form TransaksiFrame
      */
     public TransaksiFrame() {
         initComponents();
+        jTableTransaksi.setModel(table);
+    table.addColumn("Nama");
+    table.addColumn("Harga");
+    table.addColumn("Jumlah");
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +67,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
         });
 
         jComboBoxItems.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Kopi", "Susu", "Gula" }));
+        jComboBoxItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxItemsActionPerformed(evt);
+            }
+        });
 
         jTextFieldJumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,12 +87,18 @@ public class TransaksiFrame extends javax.swing.JFrame {
         });
 
         jButtonAdd.setText("Add");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
 
         jButtonRemove.setText("Remove");
 
         jTableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Nama", "Harga", "Jumlah"
@@ -154,6 +176,8 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jTextFieldCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodeActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jTextFieldCodeActionPerformed
 
     private void jTextFieldJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldJumlahActionPerformed
@@ -162,7 +186,26 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewActionPerformed
         // TODO add your handling code here:
+        int code = 1;
+        DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+	Date date = new Date();
+	System.out.println(dateFormat.format(date));
+        jTextFieldCode.setText(dateFormat.format(date)+String.format("%02d", code));
+        
     }//GEN-LAST:event_jButtonNewActionPerformed
+
+    private void jComboBoxItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxItemsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxItemsActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        // TODO add your handling code here:
+        table.addRow(new Object[]{
+            "sas",
+            "sdds",
+            129
+                                   });
+    }//GEN-LAST:event_jButtonAddActionPerformed
 
     /**
      * @param args the command line arguments
