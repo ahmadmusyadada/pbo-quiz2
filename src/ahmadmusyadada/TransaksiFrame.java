@@ -17,17 +17,28 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TransaksiFrame extends javax.swing.JFrame {
     DefaultTableModel table=new DefaultTableModel();
+    Item barang;
     /**
      * Creates new form TransaksiFrame
      */
     public TransaksiFrame() {
         initComponents();
         jTableTransaksi.setModel(table);
-    table.addColumn("Nama");
-    table.addColumn("Harga");
-    table.addColumn("Jumlah");
+        IsiComboBox();
+        table.addColumn("Nama");
+        table.addColumn("Harga");
+        table.addColumn("Jumlah");
     }
-
+    
+    private void IsiComboBox(){
+        Item barang1 = new Item("Kopi", 5000);
+        Item barang2 = new Item("Susu", 8000);
+        Item barang3 = new Item("Gula", 3000);
+        
+        jComboBoxItems.addItem(barang1);
+        jComboBoxItems.addItem(barang2);
+        jComboBoxItems.addItem(barang3);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +53,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jLabelCode = new javax.swing.JLabel();
         jLabelItems = new javax.swing.JLabel();
         jTextFieldCode = new javax.swing.JTextField();
-        jComboBoxItems = new javax.swing.JComboBox<>();
+        jComboBoxItems = new javax.swing.JComboBox();
         jTextFieldJumlah = new javax.swing.JTextField();
         jButtonNew = new javax.swing.JButton();
         jButtonAdd = new javax.swing.JButton();
@@ -66,7 +77,8 @@ public class TransaksiFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxItems.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Kopi", "Susu", "Gula" }));
+        jComboBoxItems.setSelectedIndex(-1);
+        jComboBoxItems.setNextFocusableComponent(jTextFieldJumlah);
         jComboBoxItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxItemsActionPerformed(evt);
@@ -195,17 +207,15 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jComboBoxItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxItemsActionPerformed
         // TODO add your handling code here:
-        
+        barang = (Item)jComboBoxItems.getSelectedItem();
     }//GEN-LAST:event_jComboBoxItemsActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        String nama = (String) jComboBoxItems.getSelectedItem();
-        table.addRow(new Object[]{
-            nama,
-            "sdds",
-            129
-                                   });
+//        String nama = (String) jComboBoxItems.getSelectedItem();
+        int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
+        String harga = String.valueOf(barang.getHarga());
+        table.addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     /**
@@ -249,7 +259,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNew;
     private javax.swing.JButton jButtonRemove;
     private javax.swing.JButton jButtonSave;
-    private javax.swing.JComboBox<String> jComboBoxItems;
+    private javax.swing.JComboBox jComboBoxItems;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelCode;
     private javax.swing.JLabel jLabelItems;
