@@ -18,6 +18,9 @@ import javax.swing.table.DefaultTableModel;
 public class TransaksiFrame extends javax.swing.JFrame {
     DefaultTableModel table=new DefaultTableModel();
     Item barang;
+    int code;
+    DateFormat dateFormat;
+    Date date;
     /**
      * Creates new form TransaksiFrame
      */
@@ -28,6 +31,9 @@ public class TransaksiFrame extends javax.swing.JFrame {
         table.addColumn("Nama");
         table.addColumn("Harga");
         table.addColumn("Jumlah");
+        code = 0;
+        dateFormat = new SimpleDateFormat("yyMMdd");
+	date = new Date();
     }
     
     private void IsiComboBox(){
@@ -109,8 +115,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
         jTableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nama", "Harga", "Jumlah"
@@ -119,6 +124,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableTransaksi);
 
         jButtonSave.setText("Save");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
+            }
+        });
 
         jButtonCancel.setText("Cancel");
 
@@ -198,11 +208,8 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewActionPerformed
         // TODO add your handling code here:
-        int code = 1;
-        DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-	Date date = new Date();
+        code++;
         jTextFieldCode.setText(dateFormat.format(date)+String.format("%02d", code));
-        
     }//GEN-LAST:event_jButtonNewActionPerformed
 
     private void jComboBoxItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxItemsActionPerformed
@@ -217,6 +224,20 @@ public class TransaksiFrame extends javax.swing.JFrame {
         String harga = String.valueOf(barang.getHarga());
         table.addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        // TODO add your handling code here:
+        StringBuilder sb = new StringBuilder();
+//        sb.append("Nim: ").append(nimText.getText()).append("\n");
+//        sb.append("Nama: ").append(namaText.getText()).append("\n");
+//        Object jurusanItem = jurusanComboBox.getSelectedItem();
+//        sb.append("Jurusan: ").append(jurusanItem != null ? jurusanItem: "-").append("\n");
+//        ButtonModel genderModel = genderGroup.getSelection();
+//        sb.append("Gender: ").append(genderModel != null ? genderModel.getActionCommand(): "-").append("\n");
+        sb.append("Kode: ").append(dateFormat.format(date)+String.format("%02d", code)).append("\n");
+        sb.append("Daftar belanja");
+        JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButtonSaveActionPerformed
 
     /**
      * @param args the command line arguments
