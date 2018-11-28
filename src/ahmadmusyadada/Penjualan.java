@@ -15,12 +15,21 @@ public class Penjualan {
     }
     
     public int countTotal(){
-        int total=10;
+        int total=0;
         for (int i=0;i < tabel.getRowCount();i++){
             int getHarga = Integer.parseInt((String)tabel.getValueAt(i, 2));
             total = total + (getHarga * Integer.parseInt((String)tabel.getValueAt(i, 1)));
         }
         return total;
+    }
+    
+    public String listTransaction(){
+        String temp = "";
+        for (int i=0;i < tabel.getRowCount();i++){
+            temp += tabel.getValueAt(i, 0).toString() + " " + tabel.getValueAt(i, 2).toString() 
+                    + " " + (Integer.parseInt(tabel.getValueAt(i, 1).toString()) * Integer.parseInt(tabel.getValueAt(i, 2).toString())) + "\n";
+        }
+        return temp;
     }
 
     public String getNama() {

@@ -218,6 +218,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
 //        String nama = (String) jComboBoxItems.getSelectedItem();
         int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
         String harga = String.valueOf(barang.getHarga());
+        
         item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
         
         jComboBoxItems.requestFocus();
@@ -233,7 +234,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
 //        ButtonModel genderModel = genderGroup.getSelection();
 //        sb.append("Gender: ").append(genderModel != null ? genderModel.getActionCommand(): "-").append("\n");
         sb.append("Kode: ").append(dateFormat.format(date)+String.format("%02d", code)).append("\n");
-        sb.append("Daftar belanja");
+        sb.append("Daftar belanja:\n").append(item.listTransaction());
         sb.append("Total: ").append(item.countTotal()).append("\n");
         JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonSaveActionPerformed
