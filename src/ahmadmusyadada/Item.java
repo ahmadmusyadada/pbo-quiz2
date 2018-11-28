@@ -12,19 +12,11 @@ package ahmadmusyadada;
 // Deklarasi class Item untuk merepresentasikan barang
 // yang akan dimasukkan dalam daftar belanja.
 public class Item {
-    // atribut yang digunakan untuk menyimpan nama barang
     private String namaBarang;
     private int harga;
-//    private int satuan;
 
     public Item() {
     }
-
-//    public Item(String namaBarang, int harga, int satuan) {
-//        this.namaBarang = namaBarang;
-//        this.harga = harga;
-//        this.satuan = satuan;
-//    }
 
     public Item(String namaBarang, int harga) {
         this.namaBarang = namaBarang;
@@ -36,7 +28,14 @@ public class Item {
            return this.namaBarang; //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+//    public int countTotal(){
+//        int total=10;
+//        for (int i=0;i < tabel.getRowCount();i++){
+//            int getHarga = Integer.parseInt((String)tabel.getValueAt(i, 2));
+//            total = total + (getHarga * Integer.parseInt((String)tabel.getValueAt(i, 1)));
+//        }
+//        return total;
+//    }
 
     public String getNamaBarang() {
         return namaBarang;
@@ -53,12 +52,4 @@ public class Item {
     public void setHarga(int harga) {
         this.harga = harga;
     }
-
-//    public int getSatuan() {
-//        return satuan;
-//    }
-//
-//    public void setSatuan(int satuan) {
-//        this.satuan = satuan;
-//    }
 }

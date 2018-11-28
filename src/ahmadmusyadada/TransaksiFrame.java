@@ -9,28 +9,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Ahmad Musyadad A
  */
 public class TransaksiFrame extends javax.swing.JFrame {
-    DefaultTableModel table=new DefaultTableModel();
     Item barang;
+    Penjualan item = new Penjualan();
     int code;
     DateFormat dateFormat;
     Date date;
+    int allTotal;
     /**
      * Creates new form TransaksiFrame
      */
     public TransaksiFrame() {
         initComponents();
-        jTableTransaksi.setModel(table);
         IsiComboBox();
-        table.addColumn("Nama");
-        table.addColumn("Harga");
-        table.addColumn("Jumlah");
+        jTableTransaksi.setModel(item.getTabel());
         code = 0;
         dateFormat = new SimpleDateFormat("yyMMdd");
 	date = new Date();
@@ -83,7 +80,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxItems.setSelectedIndex(-1);
         jComboBoxItems.setNextFocusableComponent(jTextFieldJumlah);
         jComboBoxItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +114,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nama", "Harga", "Jumlah"
+                "Tittle 1", "Tittle 2", "Tittle 3"
             }
         ));
         jScrollPane1.setViewportView(jTableTransaksi);
@@ -222,7 +218,9 @@ public class TransaksiFrame extends javax.swing.JFrame {
 //        String nama = (String) jComboBoxItems.getSelectedItem();
         int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
         String harga = String.valueOf(barang.getHarga());
-        table.addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
+        item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
+        
+        jComboBoxItems.requestFocus();
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
@@ -236,6 +234,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
 //        sb.append("Gender: ").append(genderModel != null ? genderModel.getActionCommand(): "-").append("\n");
         sb.append("Kode: ").append(dateFormat.format(date)+String.format("%02d", code)).append("\n");
         sb.append("Daftar belanja");
+        sb.append("Total: ").append(item.countTotal()).append("\n");
         JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
