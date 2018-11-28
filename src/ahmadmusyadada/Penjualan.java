@@ -32,6 +32,10 @@ public class Penjualan {
         return temp;
     }
 
+//    public void removeRow(int row) {
+//        tabel.removeElementAt(row);
+//    }
+    
     public String getNama() {
         return nama;
     }

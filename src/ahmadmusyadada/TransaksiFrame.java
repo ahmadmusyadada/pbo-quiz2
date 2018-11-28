@@ -108,6 +108,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
         });
 
         jButtonRemove.setText("Remove");
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveActionPerformed(evt);
+            }
+        });
 
         jTableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,6 +243,13 @@ public class TransaksiFrame extends javax.swing.JFrame {
         sb.append("Total: ").append(item.countTotal()).append("\n");
         JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
+        // TODO add your handling code here:
+        item.getTabel().removeRow((int)jTableTransaksi.getSelectedRow());
+//        DefaultTableModel model = (DefaultTableModel)someTable.getModel();
+//        model.removeRow(42);
+    }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**
      * @param args the command line arguments
