@@ -63,4 +63,8 @@ public class Penjualan {
     public void setTabel(DefaultTableModel tabel) {
         this.tabel = tabel;
     }
+    
+    public int getRowCountTabel() {
+        return tabel.getRowCount();
+    }
 }
