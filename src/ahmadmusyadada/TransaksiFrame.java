@@ -31,7 +31,19 @@ public class TransaksiFrame extends javax.swing.JFrame {
         code = 0;
         dateFormat = new SimpleDateFormat("yyMMdd");
 	date = new Date();
+        jTextFieldCode.setEditable(false);
+        jTextFieldCode.setEnabled(false);
+        jButtonAdd.setEnabled(false);
+        jButtonRemove.setEnabled(false);
+        jComboBoxItems.setEnabled(false);
+        jTextFieldJumlah.setEnabled(false);
+        jButtonSave.setEnabled(false);
+        jButtonCancel.setEnabled(false);
     }
+    
+//    public void setEditable(boolean b){
+//        jTextFieldCode.setEditable(b);
+//    }
     
     private void IsiComboBox(){
         Item barang1 = new Item("Kopi", 5000);
@@ -200,7 +212,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
     private void jTextFieldCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodeActionPerformed
         // TODO add your handling code here:
         
-        
     }//GEN-LAST:event_jTextFieldCodeActionPerformed
 
     private void jTextFieldJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldJumlahActionPerformed
@@ -211,6 +222,10 @@ public class TransaksiFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         code++;
         jTextFieldCode.setText(dateFormat.format(date)+String.format("%02d", code));
+        jButtonAdd.setEnabled(true);
+        jComboBoxItems.setEnabled(true);
+        jTextFieldJumlah.setEnabled(true);
+        jButtonCancel.setEnabled(true);
     }//GEN-LAST:event_jButtonNewActionPerformed
 
     private void jComboBoxItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxItemsActionPerformed
@@ -238,6 +253,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
                 }
             }
         }
+        
+        if (item.getTabel().getRowCount() != 0) {
+            jButtonRemove.setEnabled(true);
+            jButtonSave.setEnabled(true);
+        }
         jComboBoxItems.requestFocus();
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -252,7 +272,17 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
         // TODO add your handling code here:
-        item.getTabel().removeRow((int)jTableTransaksi.getSelectedRow());
+        try {
+            item.getTabel().removeRow((int)jTableTransaksi.getSelectedRow());
+            if (item.getTabel().getRowCount() == 0) {
+                jButtonRemove.setEnabled(false);
+                jButtonSave.setEnabled(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Please select one of the lines to be deleted", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+            
+            
     }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**
