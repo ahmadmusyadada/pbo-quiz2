@@ -223,9 +223,22 @@ public class TransaksiFrame extends javax.swing.JFrame {
 //        String nama = (String) jComboBoxItems.getSelectedItem();
         int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
         String harga = String.valueOf(barang.getHarga());
-        
-        item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
-        
+        if (item.getTabel().getRowCount()==0) {
+            item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
+        } else {
+            for (int i = 0; i < item.getTabel().getRowCount(); i++) {
+                if (item.getTabel().getValueAt(i, 0).toString().equals(barang.getNamaBarang())){
+                    item.getTabel().setValueAt(Integer.parseInt(item.getTabel().getValueAt(i, 2).toString()) + Integer.parseInt(jTextFieldJumlah.getText()), i, 2);
+                    break;
+                } else {
+                    if (!item.getTabel().getValueAt(item.getTabel().getRowCount()-1, 0).toString().equals(barang.getNamaBarang())
+                            && (i == item.getTabel().getRowCount()-1)) {
+                        item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
+                        break;
+                    }
+                }
+            }
+        }
         jComboBoxItems.requestFocus();
     }//GEN-LAST:event_jButtonAddActionPerformed
 

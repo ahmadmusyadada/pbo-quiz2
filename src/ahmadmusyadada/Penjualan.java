@@ -17,7 +17,7 @@ public class Penjualan {
     public int countTotal(){
         int total=0;
         for (int i=0;i < tabel.getRowCount();i++){
-            int getHarga = Integer.parseInt((String)tabel.getValueAt(i, 2));
+            int getHarga = Integer.parseInt(tabel.getValueAt(i, 2).toString());
             total = total + (getHarga * Integer.parseInt((String)tabel.getValueAt(i, 1)));
         }
         return total;
