@@ -144,6 +144,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
         });
 
         jButtonCancel.setText("Cancel");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,9 +240,13 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
-        String harga = String.valueOf(barang.getHarga());
-        if (item.getTabel().getRowCount()==0) {
+        if (jTextFieldJumlah.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please insert number of items", "Error", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
+            String harga = String.valueOf(barang.getHarga());
+        
+            if (item.getTabel().getRowCount()==0) {
             item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
         } else {
             for (int i = 0; i < item.getTabel().getRowCount(); i++) {
@@ -259,6 +268,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
             jButtonSave.setEnabled(true);
         }
         jComboBoxItems.requestFocus();
+        }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
@@ -281,9 +291,15 @@ public class TransaksiFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Please select one of the lines to be deleted", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
-            
-            
     }//GEN-LAST:event_jButtonRemoveActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        // TODO add your handling code here:
+        jTextFieldJumlah.setText("");
+        item.getTabel().setRowCount(0);
+        jButtonRemove.setEnabled(false);
+        jButtonSave.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments
