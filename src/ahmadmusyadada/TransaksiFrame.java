@@ -5,6 +5,8 @@
  */
 package ahmadmusyadada;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,6 +104,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jTextFieldJumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldJumlahActionPerformed(evt);
+            }
+        });
+        jTextFieldJumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldJumlahKeyTyped(evt);
             }
         });
 
@@ -227,7 +234,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         code++;
         jTextFieldCode.setText(dateFormat.format(date)+String.format("%02d", code));
-        jButtonAdd.setEnabled(true);
         jComboBoxItems.setEnabled(true);
         jTextFieldJumlah.setEnabled(true);
         jButtonCancel.setEnabled(true);
@@ -240,13 +246,10 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        if (jTextFieldJumlah.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please insert number of items", "Error", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
-            String harga = String.valueOf(barang.getHarga());
-        
-            if (item.getTabel().getRowCount()==0) {
+        int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
+        String harga = String.valueOf(barang.getHarga());
+     
+        if (item.getTabel().getRowCount()==0) {
             item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
         } else {
             for (int i = 0; i < item.getTabel().getRowCount(); i++) {
@@ -268,7 +271,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
             jButtonSave.setEnabled(true);
         }
         jComboBoxItems.requestFocus();
-        }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
@@ -278,6 +280,9 @@ public class TransaksiFrame extends javax.swing.JFrame {
         sb.append("Daftar belanja:\n").append(item.listTransaction());
         sb.append("Total: ").append(item.countTotal()).append("\n");
         JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
+        item.getTabel().setRowCount(0);
+        jButtonRemove.setEnabled(false);
+        jButtonSave.setEnabled(false);
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
@@ -300,6 +305,25 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jButtonRemove.setEnabled(false);
         jButtonSave.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void jTextFieldJumlahKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldJumlahKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        jTextFieldJumlah.addKeyListener(new KeyAdapter(){
+            @Override
+            public void keyReleased(KeyEvent e) { //watch for key strokes
+            if(jTextFieldJumlah.getText().length() == 0)
+                jButtonAdd.setEnabled(false);
+            else
+            {
+                jButtonAdd.setEnabled(true);
+            }
+        }
+        });
+        if (!(Character.isDigit(c)) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldJumlahKeyTyped
 
     /**
      * @param args the command line arguments
