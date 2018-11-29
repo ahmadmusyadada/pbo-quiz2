@@ -220,7 +220,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-//        String nama = (String) jComboBoxItems.getSelectedItem();
         int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
         String harga = String.valueOf(barang.getHarga());
         if (item.getTabel().getRowCount()==0) {
@@ -245,12 +244,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
         StringBuilder sb = new StringBuilder();
-//        sb.append("Nim: ").append(nimText.getText()).append("\n");
-//        sb.append("Nama: ").append(namaText.getText()).append("\n");
-//        Object jurusanItem = jurusanComboBox.getSelectedItem();
-//        sb.append("Jurusan: ").append(jurusanItem != null ? jurusanItem: "-").append("\n");
-//        ButtonModel genderModel = genderGroup.getSelection();
-//        sb.append("Gender: ").append(genderModel != null ? genderModel.getActionCommand(): "-").append("\n");
         sb.append("Kode: ").append(dateFormat.format(date)+String.format("%02d", code)).append("\n");
         sb.append("Daftar belanja:\n").append(item.listTransaction());
         sb.append("Total: ").append(item.countTotal()).append("\n");
@@ -260,8 +253,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
         // TODO add your handling code here:
         item.getTabel().removeRow((int)jTableTransaksi.getSelectedRow());
-//        DefaultTableModel model = (DefaultTableModel)someTable.getModel();
-//        model.removeRow(42);
     }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     /**

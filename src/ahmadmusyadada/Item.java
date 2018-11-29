@@ -27,15 +27,6 @@ public class Item {
     public String toString() {
            return this.namaBarang; //To change body of generated methods, choose Tools | Templates.
     }
-    
-//    public int countTotal(){
-//        int total=10;
-//        for (int i=0;i < tabel.getRowCount();i++){
-//            int getHarga = Integer.parseInt((String)tabel.getValueAt(i, 2));
-//            total = total + (getHarga * Integer.parseInt((String)tabel.getValueAt(i, 1)));
-//        }
-//        return total;
-//    }
 
     public String getNamaBarang() {
         return namaBarang;
