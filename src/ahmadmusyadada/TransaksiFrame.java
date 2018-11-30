@@ -29,10 +29,12 @@ public class TransaksiFrame extends javax.swing.JFrame {
     public TransaksiFrame() {
         initComponents();
         IsiComboBox(); //untuk mengisi list pada combo box
-        jTableTransaksi.setModel(item.getTabel()); //
+        jTableTransaksi.setModel(item.getTabel()); 
         code = 0;
-        dateFormat = new SimpleDateFormat("yyMMdd");
+        dateFormat = new SimpleDateFormat("yyMMdd"); //format tanggal untuk code transaksi
 	date = new Date();
+        
+        //untuk men-disable tombol
         jTextFieldCode.setEditable(false);
         jTextFieldCode.setEnabled(false);
         jButtonAdd.setEnabled(false);
@@ -43,6 +45,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jButtonCancel.setEnabled(false);
     }
     
+    //untuk list barang
     private void IsiComboBox(){
         Item barang1 = new Item("Kopi", 5000);
         Item barang2 = new Item("Susu", 8000);
@@ -324,7 +327,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jTextFieldJumlah.addKeyListener(new KeyAdapter(){
             @Override
             public void keyReleased(KeyEvent e) { //watch for key strokes
-            if(jTextFieldJumlah.getText().length() == 0)
+            if(jTextFieldJumlah.getText().length() == 0 || jTextFieldJumlah.getText().equals("0"))
                 jButtonAdd.setEnabled(false);
             else
             {
