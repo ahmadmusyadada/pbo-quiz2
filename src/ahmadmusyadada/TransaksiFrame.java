@@ -25,7 +25,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
     DateFormat dateFormat;
     Date date;
     DefaultTableModel tabel = item.getTabel();
-    int tabelRow = item.getRowCountTabel();
+    
     /**
      * Creates new form TransaksiFrame
      */
@@ -260,13 +260,14 @@ public class TransaksiFrame extends javax.swing.JFrame {
         String namaBarang = String.valueOf(barang.getNamaBarang()); //untuk menyimpan nama barang yg dipilih
         int jumlah = Integer.parseInt(jTextFieldJumlah.getText()); //untuk menyimpan jumlah barang yg diinginkan
         String harga = String.valueOf(barang.getHarga()); //untuk menyimpan harga dari barang yg dipilih
-     
+        int tabelRow = item.getRowCountTabel();
+        
         if (tabelRow == 0) {
             tabel.addRow(new Object[]{namaBarang, harga, jumlah});
         } else {
             for (int i = 0; i < tabelRow; i++) { //pengecekan jika ada barang yg sama
                 if (tabel.getValueAt(i, 0).toString().equals(namaBarang)){
-                    tabel.setValueAt(Integer.parseInt(tabel.getValueAt(i, 2).toString()) + jumlah, i, 2);
+                    tabel.setValueAt((Integer.parseInt(tabel.getValueAt(i, 2).toString()) + jumlah), i, 2);
                     break;
                 } else {
                     if (!tabel.getValueAt(tabelRow - 1, 0).toString().equals(namaBarang)
