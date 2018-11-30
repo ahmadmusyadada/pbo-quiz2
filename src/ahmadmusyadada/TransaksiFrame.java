@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +24,8 @@ public class TransaksiFrame extends javax.swing.JFrame {
     //untuk tanggal
     DateFormat dateFormat;
     Date date;
+    DefaultTableModel tabel = item.getTabel();
+    int tabelRow = item.getRowCountTabel();
     /**
      * Creates new form TransaksiFrame
      */
@@ -30,9 +33,10 @@ public class TransaksiFrame extends javax.swing.JFrame {
         initComponents();
         IsiComboBox(); //untuk mengisi list pada combo box
         jTableTransaksi.setModel(item.getTabel()); 
-        code = 0;
+        code = 0; //untuk code transaksi digit terakhir
         dateFormat = new SimpleDateFormat("yyMMdd"); //format tanggal untuk code transaksi
 	date = new Date();
+        
         
         //untuk men-disable tombol
         jTextFieldCode.setEditable(false);
@@ -248,27 +252,26 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
     private void jComboBoxItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxItemsActionPerformed
         // TODO add your handling code here:
-        barang = (Item)jComboBoxItems.getSelectedItem();
+        barang = (Item)jComboBoxItems.getSelectedItem(); //untuk mendapatkan barang yg dipilih
     }//GEN-LAST:event_jComboBoxItemsActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        String namaBarang = String.valueOf(barang.getNamaBarang());
-        int jumlah = Integer.parseInt(jTextFieldJumlah.getText());
-        String harga = String.valueOf(barang.getHarga());
-        int tabelRow = item.getRowCountTabel();
+        String namaBarang = String.valueOf(barang.getNamaBarang()); //untuk menyimpan nama barang yg dipilih
+        int jumlah = Integer.parseInt(jTextFieldJumlah.getText()); //untuk menyimpan jumlah barang yg diinginkan
+        String harga = String.valueOf(barang.getHarga()); //untuk menyimpan harga dari barang yg dipilih
      
         if (tabelRow == 0) {
-            item.getTabel().addRow(new Object[]{namaBarang, harga, jumlah});
+            tabel.addRow(new Object[]{namaBarang, harga, jumlah});
         } else {
-            for (int i = 0; i < tabelRow; i++) {
-                if (item.getTabel().getValueAt(i, 0).toString().equals(barang.getNamaBarang())){
-                    item.getTabel().setValueAt(Integer.parseInt(item.getTabel().getValueAt(i, 2).toString()) + Integer.parseInt(jTextFieldJumlah.getText()), i, 2);
+            for (int i = 0; i < tabelRow; i++) { //pengecekan jika ada barang yg sama
+                if (tabel.getValueAt(i, 0).toString().equals(namaBarang)){
+                    tabel.setValueAt(Integer.parseInt(tabel.getValueAt(i, 2).toString()) + jumlah, i, 2);
                     break;
                 } else {
-                    if (!item.getTabel().getValueAt(tabelRow - 1, 0).toString().equals(barang.getNamaBarang())
+                    if (!tabel.getValueAt(tabelRow - 1, 0).toString().equals(namaBarang)
                             && (i == tabelRow-1)) {
-                        item.getTabel().addRow(new Object[]{barang.getNamaBarang(), harga, jTextFieldJumlah.getText()});
+                        tabel.addRow(new Object[]{namaBarang, harga, jumlah});
                         break;
                     }
                 }
@@ -279,7 +282,6 @@ public class TransaksiFrame extends javax.swing.JFrame {
             jButtonRemove.setEnabled(true);
             jButtonSave.setEnabled(true);
         }
-        jComboBoxItems.requestFocus();
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
@@ -290,21 +292,21 @@ public class TransaksiFrame extends javax.swing.JFrame {
         sb.append("Total: ").append(item.countTotal()).append("\n");
         JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
         jTextFieldJumlah.setText("");
-        item.getTabel().setRowCount(0);
+        tabel.setRowCount(0);
         code++;
         jButtonRemove.setEnabled(false);
         jButtonSave.setEnabled(false);
+        jButtonAdd.setEnabled(false);
         int codeTransaksi = Integer.parseInt(jTextFieldCode.getText());
         String codeTransaksiString = String.valueOf(codeTransaksi+1);
         jTextFieldCode.setText(codeTransaksiString);
-        jButtonAdd.setEnabled(false);
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
         // TODO add your handling code here:
         try {
-            item.getTabel().removeRow((int)jTableTransaksi.getSelectedRow());
-            if (item.getTabel().getRowCount() == 0) {
+            tabel.removeRow((int)jTableTransaksi.getSelectedRow()); //untuk menghapus row yg dipilih
+            if (tabel.getRowCount() == 0) {
                 jButtonRemove.setEnabled(false);
                 jButtonSave.setEnabled(false);
             }
@@ -316,7 +318,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
         jTextFieldJumlah.setText("");
-        item.getTabel().setRowCount(0);
+        tabel.setRowCount(0);
         jButtonRemove.setEnabled(false);
         jButtonSave.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelActionPerformed
@@ -343,7 +345,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
     private void jTableTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTransaksiMouseClicked
         // TODO add your handling code here:
         boolean click =  jTableTransaksi.isEditing();
-        if (click == false) {
+        if (click == false) { //Supaya tidak bisa mengedit tabel
             JOptionPane.showMessageDialog(this, "Cannot edit cell of table", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jTableTransaksiMouseClicked

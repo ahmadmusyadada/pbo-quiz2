@@ -28,6 +28,7 @@ public class Item {
            return this.namaBarang; //To change body of generated methods, choose Tools | Templates.
     }
 
+    //membuat setter dan getter
     public String getNamaBarang() {
         return namaBarang;
     }
