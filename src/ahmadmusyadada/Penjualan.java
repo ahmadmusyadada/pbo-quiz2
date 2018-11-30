@@ -8,12 +8,14 @@ public class Penjualan {
     private int harga;
     private DefaultTableModel tabel = new DefaultTableModel();
 
+    //untuk penambahan kolom
     public Penjualan() {
         getTabel().addColumn("Nama");
         getTabel().addColumn("Harga");
         getTabel().addColumn("Jumlah");
     }
     
+    //untuk menghitung jumlah total transaksi
     public int countTotal(){
         int total=0;
         for (int i=0;i < tabel.getRowCount();i++){
@@ -23,6 +25,7 @@ public class Penjualan {
         return total;
     }
     
+    //untuk menampilkan list transaksi
     public String listTransaction(){
         String temp = "";
         for (int i=0;i < tabel.getRowCount();i++){
@@ -32,6 +35,7 @@ public class Penjualan {
         return temp;
     }
     
+    //menambahkan setter dan getter
     public String getNama() {
         return nama;
     }
@@ -64,6 +68,7 @@ public class Penjualan {
         this.tabel = tabel;
     }
     
+    //untuk mendapatkan jumlah baris pada tabel
     public int getRowCountTabel() {
         return tabel.getRowCount();
     }

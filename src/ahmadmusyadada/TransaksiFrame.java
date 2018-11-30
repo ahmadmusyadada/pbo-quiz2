@@ -17,19 +17,19 @@ import javax.swing.*;
  * @author Ahmad Musyadad A
  */
 public class TransaksiFrame extends javax.swing.JFrame {
-    Item barang;
-    Penjualan item = new Penjualan();
-    int code;
+    Item barang; 
+    Penjualan item = new Penjualan(); 
+    int code; //untuk 2 digit terakhir code
+    //untuk tanggal
     DateFormat dateFormat;
     Date date;
-    int allTotal;
     /**
      * Creates new form TransaksiFrame
      */
     public TransaksiFrame() {
         initComponents();
-        IsiComboBox();
-        jTableTransaksi.setModel(item.getTabel());
+        IsiComboBox(); //untuk mengisi list pada combo box
+        jTableTransaksi.setModel(item.getTabel()); //
         code = 0;
         dateFormat = new SimpleDateFormat("yyMMdd");
 	date = new Date();
@@ -79,6 +79,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Transaksi");
 
         jLabelCode.setText("Code");
 
