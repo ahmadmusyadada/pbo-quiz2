@@ -271,7 +271,7 @@ public class TransaksiFrame extends javax.swing.JFrame {
             }
         }
         
-        if (tabelRow != 0) {
+        if (tabelRow >= 0 ) {
             jButtonRemove.setEnabled(true);
             jButtonSave.setEnabled(true);
         }
@@ -285,9 +285,15 @@ public class TransaksiFrame extends javax.swing.JFrame {
         sb.append("Daftar belanja:\n").append(item.listTransaction());
         sb.append("Total: ").append(item.countTotal()).append("\n");
         JOptionPane.showMessageDialog(this, sb, "Detail Transaksi", JOptionPane.INFORMATION_MESSAGE);
+        jTextFieldJumlah.setText("");
         item.getTabel().setRowCount(0);
+        code++;
         jButtonRemove.setEnabled(false);
         jButtonSave.setEnabled(false);
+        int codeTransaksi = Integer.parseInt(jTextFieldCode.getText());
+        String codeTransaksiString = String.valueOf(codeTransaksi+1);
+        jTextFieldCode.setText(codeTransaksiString);
+        jButtonAdd.setEnabled(false);
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
